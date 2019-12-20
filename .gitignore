@@ -1,1 +1,3 @@
 env/
+
+istio-1.4.1/bin/istioctl

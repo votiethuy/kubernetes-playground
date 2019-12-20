@@ -1,0 +1,72 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: alpr-detector
+  namespace: redaction
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 50%
+  template:
+    metadata:
+      labels:
+        app: alpr-detector
+    spec:
+      containers:
+      - name: alpr-detector
+        image: docker.taservs.net/vision/alpr_inferencer:gpu-20190910.48
+        imagePullPolicy: Always
+        ports:
+        - name: grpc-alpr-api
+          containerPort: 50052
+        readinessProbe:
+          exec:
+            command: ["/bin/grpc_health_probe", "-addr=:50052", "-service=Inferencer"]
+          initialDelaySeconds: 5
+        livenessProbe:
+          exec:
+            command: ["/bin/grpc_health_probe", "-addr=:50052", "-service=Inferencer"]
+          initialDelaySeconds: 10
+        resources:
+          requests:
+            cpu: "2"
+            memory: "16Gi"
+            nvidia.com/gpu: 1
+          limits:
+            cpu: "2"
+            memory: "16Gi"
+            nvidia.com/gpu: 1
+        command: ["sh","/opt/alpr_inference/docker-entrypoint.sh"]
+        env:
+        - name: SERVICE_NAME
+          value: ALPR_DETECTOR_SERVICE
+        - name: DD_HOST
+          value: "datadog.kube-system.svc.cluster.local"
+        - name: CONFIDENCE_THRES
+          value: "0.55"
+        - name: MODEL_GPU
+          value: "0.9"
+        - name: LOG_LEVEL_CONFIG
+          value: "INFO"
+        - name: PORT
+          value: "50052"
+        - name: SENTRY_PATH
+          value: "https://d3e888e477854fbabee69ccc6d5a8819:4e0d676fd9f6441c98c461c9ce4cf0e7@qag1ge1lsen001.ag1.taservs.net/2"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: alpr-detector
+  namespace: redaction
+spec:
+  type: ClusterIP
+  ports:
+    - name: grpc-alpr-api
+      port: 9080
+      protocol: TCP
+      targetPort: grpc-alpr-api
+  selector:
+    app: alpr-detector
