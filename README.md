@@ -5,7 +5,7 @@ Kubernetes Playground
 ## Install
 
 Using kubeadm. [Official docs](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
-Network Canal
+Network Flannel
 
 ```code
 kubeadm init --pod-network-cidr=10.244.0.0/16
@@ -13,14 +13,17 @@ kubeadm init --pod-network-cidr=10.244.0.0/16
 
 Save the token to join node
 
-```bash
-kubeadm join 10.163.60.19:6443 --token rlmf13.luf5r7mvpt1nixy0 --discovery-token-ca-cert-hash sha256:c57f1ba06849ddf3d2dd3c37b5c20d3bc7cd59acf0eb424f94f38c5d8d4fbe93
-```
-
 Install CNI
 
 ```bash
-kubectl apply -f https://docs.projectcalico.org/v3.8/manifests/canal.yaml
+kubectl apply -f https://docs.projectcalico.org/v3.10/manifests/canal.yaml
+```
+
+Join node command
+
+```bash
+kubeadm join 10.163.60.19:6443 --token skyc80.lt2qt018er4ghnlu \
+    --discovery-token-ca-cert-hash sha256:9ce421e4cf7104e63f422748917bc35419a43e947cc1ec7235043553b210050c
 ```
 
 Set role worker for new node
