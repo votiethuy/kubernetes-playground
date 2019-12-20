@@ -55,14 +55,14 @@ kubectl cluster-info
 
 ### Dashboard
 
-Install Dashboard
+Use [Octant](https://github.com/vmware-tanzu/octant)
 
 ```code
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0-beta6/aio/deploy/recommended.yaml
+brew install octant
 ```
 
 ```code
-kubectl proxy
+octant
 ```
 
-Goto: [Dashboard](http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/)
+Goto: [Dashboard](127.0.0.1:7777)
