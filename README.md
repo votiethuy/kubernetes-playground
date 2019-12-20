@@ -16,14 +16,13 @@ Save the token to join node
 Install CNI
 
 ```bash
-kubectl apply -f https://docs.projectcalico.org/v3.10/manifests/canal.yaml
+kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/2140ac876ef134e0ed5af15c65e414cf26827915/Documentation/kube-flannel.yml
 ```
 
 Join node command
 
 ```bash
-kubeadm join 10.163.60.19:6443 --token skyc80.lt2qt018er4ghnlu \
-    --discovery-token-ca-cert-hash sha256:9ce421e4cf7104e63f422748917bc35419a43e947cc1ec7235043553b210050c
+kubeadm join 10.163.60.19:6443 --token 8yy96k.ka0ro6d28g2m59m6 --discovery-token-ca-cert-hash sha256:a49730d0654a259170f220e109593f1f4a79bab8d195ffc46f6b48ddce194a93
 ```
 
 Set role worker for new node
