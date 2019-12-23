@@ -62,4 +62,5 @@ Install
 
 ```code
 kubectl apply -f fluentd/service-account.yaml
+kubectl apply -f fluentd/daemonset.yaml
 ```
