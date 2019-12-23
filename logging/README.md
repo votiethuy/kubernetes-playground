@@ -14,6 +14,18 @@ kubectl apply -f namespace.yaml
 
 Create Storage: use local-storage class. It cannot use dynamic provisioning PV. We need static provisioning.
 
+Create folder on the worker node
+
+```code
+mkdir -p /etc/kubernetes/volumes/es
+```
+
+Label worker node if not has role
+
+```code
+kubectl label node <node> node-role.kubernetes.io/worker=worker
+```
+
 ```code
 kubectl apply -f elasticsearch/storage.yaml
 ```
