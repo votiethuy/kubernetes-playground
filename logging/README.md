@@ -35,3 +35,13 @@ Create headless service
 ```code
 kubectl apply -f elasticsearch/service.yaml
 ```
+
+Test ES
+
+```code
+kubectl port-forward es-cluster-0 9200:9200 --namespace=kube-logging
+```
+
+```code
+curl http://localhost:9200/_cluster/state?pretty
+```
