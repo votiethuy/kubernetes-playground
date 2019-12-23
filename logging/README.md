@@ -64,3 +64,7 @@ Install
 kubectl apply -f fluentd/service-account.yaml
 kubectl apply -f fluentd/daemonset.yaml
 ```
+
+## Setup Kibana
+
+Go to kibana, create index `logstash-*`
