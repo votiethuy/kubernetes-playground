@@ -6,8 +6,10 @@ metadata:
   labels:
     app: kibana
 spec:
+  type: NodePort
   ports:
   - port: 5601
+    nodePort: 30001
   selector:
     app: kibana
 ---
@@ -15,7 +17,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: kibana
-  namespace: kube-logging
+  namespace: logging
   labels:
     app: kibana
 spec:

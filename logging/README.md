@@ -45,3 +45,21 @@ kubectl port-forward es-cluster-0 9200:9200 --namespace=logging
 ```code
 curl http://localhost:9200/_cluster/state?pretty
 ```
+
+### Kibana
+
+Install
+
+```code
+kubectl apply -f kibana/deployment.yaml
+```
+
+Access Kibana via NodePort: 30001
+
+### FluentD Daemonset
+
+Install
+
+```code
+kubectl apply -f fluentd/service-account.yaml
+```
