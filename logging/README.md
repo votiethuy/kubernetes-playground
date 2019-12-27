@@ -20,6 +20,8 @@ Create folder on the worker node
 mkdir -p /etc/kubernetes/volumes/es
 ```
 
+Or just use empty-dir volume
+
 Label worker node if not has role
 
 ```code

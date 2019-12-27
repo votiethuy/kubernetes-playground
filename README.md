@@ -66,3 +66,11 @@ octant
 ```
 
 Goto: [Dashboard](127.0.0.1:7777)
+
+### Kubectl cheatsheet
+
+Delete all pods != Running
+
+```code
+kubectl get pods --field-selector=status.phase!=Running -n <namespace> -o json | kubectl delete -f -
+```
